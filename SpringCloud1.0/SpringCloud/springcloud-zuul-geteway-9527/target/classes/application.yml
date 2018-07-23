@@ -1,0 +1,33 @@
+server:
+  port: 9527
+
+spring:
+  application:
+    name: springcloud-zuul-gateway
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka,http://eureka7003.com:7003/eureka
+  instance:
+    instance-id: gateway-9527.com
+    prefer-ip-address: true
+
+
+zuul:
+  #ignored-services: microservicecloud-dept
+  #统一公共的前缀
+  prefix: /bdqn
+  #屏蔽所有微服务的真实路径
+  ignored-services: "*"
+  #网关服务映射地址配置
+  routes:
+    mydept.serviceId: microservicecloud-dept #真实地址
+    mydept.path: /mydept/** #映射地址
+
+info:
+  app.name: bdqn-microcloud
+  company.name: www.bdqn.com
+  build.artifactId: $project.artifactId$
+  build.version: $project.version$
+
